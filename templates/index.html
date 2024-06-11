@@ -3,29 +3,30 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Teste Flask</title>
+        <title>To do list Flask</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
     </head>
     <body>
       <div class="main-content">
-        <h2 style="text-align: center">Notas dos alunos: </h2>
+        <h2 style="text-align: center">Insira uma tarefa:  </h2>
         <form action="{{url_for('main')}}" method="POST">
             <label>Insira uma tarefa: </label>
             <input name="task" type="text"/>
-            <button>Adicionar</button>
+            <button id="send-button">Adicionar</button>
         </form>
         <div class="task-container"> 
-
-            {% for task in tasks %}
+            {% for task in tasksList %}
             <div class="task">
-            <input name="task" type="checkbox"/> 
-            <p>{{ task }}</p>
-          </div>
+            <input name="tasks" type="checkbox"/> 
+            <p id="paragraph">{{ task }}</p>
+            <a href="{{ url_for('remove', task=task) }}">
+              <img src="{{ url_for('static', filename='trash.svg') }}" alt="Remover">
+            </a>       
+            </div>
             {% endfor %}
-
+              <button id="clean-button" onclick="window.location.href='{{url_for('clean')}}';">Limpar campo de tarefas</button>
         </div>
       </div>
     </body>
